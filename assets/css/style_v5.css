@@ -1,0 +1,261 @@
+/* ==========================================================
+   v5 · 展板门框（第一部分 / 第二部分 / 序厅入口 统一版式）
+   ========================================================== */
+
+.stele-level {
+  padding: 0 14px 100px;
+}
+
+.level__head--compact {
+  min-height: 0;
+  padding: 10px 150px 6px 18px;
+  background: none;
+}
+.level__head--compact::after { display: none; }
+.level__head--compact .overline { font-size: 10px; }
+
+.stele {
+  margin-top: 74px;
+  --accent: #7aa896;
+  --band: #1e423d;
+  --title: #a63a2b;
+  --glow: 122, 168, 150;
+  position: relative;
+  width: 100%;
+  max-width: 470px;
+  margin: 96px auto 0;
+}
+.stele--orange { --accent: #c8763a; --band: #9a4522; --title: #a63a2b; --glow: 200, 118, 58; }
+.stele--gold { --accent: #b08a3e; --band: #2a2418; --title: #a63a2b; --glow: 176, 138, 62; }
+
+.stele__crown {
+  height: 80px;
+  color: var(--accent);
+  filter: drop-shadow(0 0 16px rgba(var(--glow), 0.5));
+}
+.stele__crown svg { width: 100%; height: 100%; display: block; }
+
+.stele__frame {
+  display: grid;
+  grid-template-columns: 30px 64px 1fr;
+  min-height: 50vh;
+  border: 2px solid var(--accent);
+  border-top: 0;
+  background: #0c161a;
+  box-shadow:
+    0 0 48px rgba(var(--glow), 0.26),
+    inset 0 0 50px rgba(0, 0, 0, 0.55);
+}
+
+.stele__band {
+  background: linear-gradient(180deg, var(--band), rgba(0, 0, 0, 0.55));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-right: 1px solid rgba(0, 0, 0, 0.35);
+  padding: 10px 0;
+}
+.band-cn {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--serif);
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  color: #f6e9cc;
+}
+.band-en {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--sans);
+  font-size: 7.5px;
+  letter-spacing: 0.24em;
+  color: rgba(246, 233, 204, 0.7);
+}
+
+.stele__title {
+  background: linear-gradient(180deg, #f9f0dd, #e7d5b2 60%, #dcc79f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgba(90, 70, 40, 0.28);
+  box-shadow: inset -6px 0 14px rgba(120, 96, 60, 0.18);
+  padding: 8px 0;
+}
+.stele__title h2 {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 30px;
+  letter-spacing: 0.18em;
+  color: var(--title);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.stele__panel {
+  position: relative;
+  padding: 14px 12px 76px;
+  color: #eaf3ff;
+  background: linear-gradient(180deg, #2b6cb2 0%, #1a4a86 45%, #0f2e58 100%);
+  box-shadow:
+    inset 0 0 46px rgba(120, 200, 255, 0.26),
+    inset 0 0 0 1px rgba(180, 225, 255, 0.26);
+  overflow: hidden;
+}
+.stele__panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 20%),
+    radial-gradient(80% 36% at 50% 100%, rgba(120, 200, 255, 0.18), transparent 72%);
+}
+.panel-en {
+  position: relative;
+  z-index: 1;
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.16em;
+  line-height: 1.35;
+  margin-bottom: 9px;
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0, 30, 60, 0.6);
+}
+.panel-cn {
+  position: relative;
+  z-index: 1;
+  font-size: 12.5px;
+  line-height: 1.85;
+  text-align: justify;
+  margin: 0 0 8px;
+  color: #f2f8ff;
+  text-shadow: 0 1px 4px rgba(0, 25, 50, 0.45);
+}
+.panel-eng {
+  position: relative;
+  z-index: 1;
+  font-size: 8px;
+  line-height: 1.55;
+  text-align: justify;
+  margin: 0;
+  color: rgba(228, 241, 255, 0.66);
+}
+.panel-art {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 96px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.panel-art svg { width: 100%; height: 100%; display: block; }
+
+.stele__base {
+  height: 9px;
+  margin: 0 4px;
+  background: linear-gradient(180deg, var(--accent), rgba(0, 0, 0, 0.55));
+  opacity: 0.85;
+}
+
+.stele__next {
+  display: flex;
+  margin: 14px auto 0;
+  min-width: 168px;
+}
+
+/* ---------- 序厅入口 ---------- */
+.stele__panel--portal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background:
+    radial-gradient(70% 55% at 50% 46%, #061018 0%, #0a2430 55%, #123a52 100%);
+  min-height: 46vh;
+}
+.stele__panel--portal::after {
+  background: linear-gradient(180deg, rgba(140, 210, 255, 0.12), transparent 22%, transparent 78%, rgba(120, 200, 255, 0.1));
+}
+.stele__panel--portal .portal-hole {
+  position: absolute;
+  left: 11%;
+  top: 7%;
+  width: 78%;
+  height: 72%;
+}
+.stele__panel--portal .portal-hole__core { border-radius: 44% 44% 4% 4% / 26% 26% 3% 3%; }
+.portal-cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  z-index: 2;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  color: #dff0ff;
+  text-shadow: 0 0 12px rgba(120, 200, 255, 0.5);
+}
+.portal-cap span {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--sans);
+  font-size: 7.5px;
+  letter-spacing: 0.24em;
+  color: rgba(200, 230, 255, 0.55);
+}
+.portal-note {
+  width: 100%;
+  max-width: 470px;
+  margin: 14px auto 0;
+  text-align: center;
+  font-family: var(--kai);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(246, 237, 217, 0.72);
+}
+
+@media (max-width: 560px) {
+  .stele-level { padding: 0 10px 96px; }
+  .stele__frame { grid-template-columns: 28px 58px 1fr; min-height: 50vh; }
+  .stele__title h2 { font-size: 26px; }
+  .panel-cn { font-size: 12px; line-height: 1.8; }
+  .panel-en { font-size: 14px; }
+}
+
+@media (min-width: 900px) {
+  .stele { max-width: 580px; margin-top: 128px; }
+  .stele__frame { min-height: 48vh; }
+  .stele__title h2 { font-size: 34px; }
+}
+
+
+/* 展板进出场：像穿过门框 */
+.stele { animation: steleIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+@keyframes steleIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+.stele.is-leaving { animation: steleOut 0.42s ease-in forwards; }
+@keyframes steleOut {
+  to { opacity: 0; transform: scale(1.07); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stele, .stele.is-leaving { animation-duration: 0.01s; }
+}
+
+
+/* 展板关：背景压成暗室，避免与展板内容重复 */
+body.stele-mode .bg__photo {
+  filter: brightness(0.2) blur(16px) saturate(0.75);
+  transform: scale(1.06);
+}
+body.stele-mode .bg__veil {
+  background: radial-gradient(100% 72% at 50% 38%, rgba(8, 7, 5, 0.5), rgba(8, 7, 5, 0.92) 78%);
+}
