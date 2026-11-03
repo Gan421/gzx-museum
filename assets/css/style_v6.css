@@ -1,0 +1,262 @@
+/* ==========================================================
+   v6 · 长文弹窗（设计参考自 Phaser 消消乐的科普弹窗）
+   与地铁调度任务面板的卡片细节一起并入，不改动原有玩法
+   ========================================================== */
+
+/* 点位卡片左侧的强调竖条（参考调度任务卡） */
+.spotcard { padding-left: 15px; }
+.spotcard::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--red), var(--gold));
+  opacity: 0.75;
+  border-radius: 2px;
+}
+.spotcard { position: relative; }
+
+/* 卡片里的“读长文”入口 */
+.spotcard__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 16px;
+  border: 1px solid rgba(176, 138, 62, 0.55);
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(166, 58, 43, 0.1), rgba(166, 58, 43, 0.04));
+  color: #7c281e;
+  font-family: var(--serif);
+  font-size: 12.5px;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.spotcard__more:hover {
+  background: linear-gradient(180deg, rgba(166, 58, 43, 0.2), rgba(166, 58, 43, 0.08));
+  transform: translateX(2px);
+}
+.spotcard__more::after { content: "›"; font-size: 15px; line-height: 1; }
+
+/* ---------------- 长文弹窗 ---------------- */
+.longread {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(16, 11, 7, 0.78);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: lrFade 0.18s ease-out;
+}
+.longread[hidden] { display: none; }
+@keyframes lrFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lrIn { from { opacity: 0; transform: translateY(14px) scale(0.985); } to { opacity: 1; transform: none; } }
+
+.longread__card {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: min(86vh, 760px);
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  border: 1px solid rgba(176, 138, 62, 0.7);
+  border-radius: 3px;
+  background:
+    radial-gradient(120% 60% at 10% 0%, rgba(255, 255, 255, 0.55), transparent 55%),
+    linear-gradient(180deg, #f8eeda 0%, #f1e4c9 55%, #e9d9b8 100%);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 0 60px rgba(176, 138, 62, 0.12);
+  animation: lrIn 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.longread__card::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  border: 1px solid rgba(176, 138, 62, 0.38);
+  border-radius: 2px;
+}
+.longread__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: repeating-linear-gradient(0deg, rgba(120, 96, 60, 0.045) 0 1px, transparent 1px 3px);
+  mix-blend-mode: multiply;
+}
+
+.longread__head { position: relative; z-index: 1; padding: 22px 24px 0; }
+.longread__kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--red);
+}
+.longread__kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--red);
+  transform: rotate(45deg);
+}
+.longread__title {
+  margin: 8px 0 0;
+  font-family: var(--serif);
+  font-size: 27px;
+  line-height: 1.25;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+.longread__sub { margin: 6px 0 0; font-size: 12px; letter-spacing: 0.14em; color: var(--ink-3); }
+.longread__rule {
+  height: 1px;
+  margin: 14px 24px 0;
+  background: linear-gradient(90deg, var(--gold), rgba(176, 138, 62, 0.1));
+}
+
+.longread__body {
+  position: relative;
+  z-index: 1;
+  padding: 14px 24px 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-height: min(50vh, 430px);
+  font-size: 15.5px;
+  line-height: 1.95;
+  color: var(--ink-2);
+  text-align: justify;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(166, 58, 43, 0.6) transparent;
+}
+.longread__body p { margin: 0 0 14px; }
+.longread__body p:last-child { margin-bottom: 4px; }
+.longread__body p:first-child::first-letter {
+  float: left;
+  font-family: var(--serif);
+  font-size: 44px;
+  line-height: 0.9;
+  padding: 4px 6px 0 0;
+  color: var(--red);
+}
+.longread__body::-webkit-scrollbar { width: 9px; }
+.longread__body::-webkit-scrollbar-track { background: rgba(120, 96, 60, 0.08); border-radius: 5px; }
+.longread__body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold), var(--red));
+  border-radius: 5px;
+  border: 2px solid #f2e6cd;
+}
+
+.longread__foot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 24px 20px;
+}
+.longread__count { font-size: 12px; letter-spacing: 0.12em; color: #8a7452; }
+.longread__close {
+  min-width: 118px;
+  height: 42px;
+  border: 1px solid #6f2016;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #b84634, #8b2b1f);
+  color: #fbf2df;
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.24em;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(217, 185, 106, 0.5), 0 8px 18px -10px rgba(90, 26, 18, 0.9);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.longread__close:hover {
+  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1px rgba(217, 185, 106, 0.8), 0 12px 22px -10px rgba(90, 26, 18, 1);
+}
+
+@media (max-width: 560px) {
+  .longread { padding: 12px; }
+  .longread__head { padding: 18px 18px 0; }
+  .longread__title { font-size: 23px; }
+  .longread__body { padding: 12px 18px 6px; font-size: 15px; }
+  .longread__foot { padding: 10px 18px 16px; }
+}
+
+
+/* ---------------- v7：遗址详情、淘锡小知识、年表补充 ---------------- */
+.ruin-detail {
+  margin: 6px 0 8px;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: #6b5a42;
+}
+.tin-know {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #5a4a35;
+  background: rgba(176, 138, 62, 0.1);
+  border-left: 2px solid var(--gold);
+  padding: 6px 10px;
+}
+.tin-know b {
+  color: var(--red);
+  margin-right: 6px;
+  font-family: var(--serif);
+  letter-spacing: 0.1em;
+}
+.tl-col__desc {
+  max-width: 72px;
+  margin: 2px 0 6px;
+  font-size: 9.5px;
+  line-height: 1.55;
+  text-align: center;
+  color: rgba(217, 185, 106, 0.7);
+}
+.year-chip small {
+  display: block;
+  margin-top: 2px;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: #8a7452;
+}
+
+
+/* 遗址：配对后展开详情，避免文字压住照片 */
+.ruin-slot.is-filled {
+  display: block;
+  padding: 10px 12px 12px;
+}
+.ruin-slot.is-filled > img {
+  float: left;
+  width: 58px;
+  height: 46px;
+  object-fit: cover;
+  margin: 2px 10px 6px 0;
+  border-radius: 2px;
+}
+.ruin-slot.is-filled > div { display: block; }
+.ruin-slot .spotcard__more {
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: #f0dcb4;
+  border-color: rgba(217, 185, 106, 0.5);
+  background: rgba(166, 58, 43, 0.16);
+}
+.ruin-detail { font-size: 11px; color: rgba(243, 234, 216, 0.72); }
+
+
+/* 淘洗盆与工作台：禁止滚动/选中，避免拖动时页面跳动 */
+.sieve, .sieve-wrap { touch-action: none; user-select: none; -webkit-user-select: none; }
+.sieve { will-change: transform; }
+.workbench, .shop { touch-action: none; user-select: none; -webkit-user-select: none; }
