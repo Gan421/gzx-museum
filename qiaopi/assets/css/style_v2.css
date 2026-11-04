@@ -128,16 +128,33 @@
 .trail-note { padding: 0 18px 24px; font-size: 12.5px; color: var(--red-3); min-height: 20px; }
 
 
-/* 标题页：另一款游戏的入口 */
-.title-link {
-  display: inline-block;
-  margin-top: 12px;
-  font-family: var(--serif);
-  font-size: 12.5px;
-  letter-spacing: 0.16em;
-  color: rgba(217, 185, 106, 0.8);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(217, 185, 106, 0.35);
-  padding-bottom: 2px;
+/* ---------------- 与《根在侨乡》统一：顶栏、按钮、圆钮 ---------------- */
+.topbar {
+  background: linear-gradient(180deg, rgba(22, 18, 13, 0.97), rgba(22, 18, 13, 0.86));
+  border-bottom: 1px solid rgba(176, 138, 62, 0.35);
 }
-.title-link:hover { color: #f4e6c6; border-color: rgba(217, 185, 106, 0.8); }
+.topbar__title { color: rgba(244, 233, 211, 0.6); }
+.topbar__title b { color: #f4e6c6; }
+.icon-btn {
+  color: rgba(244, 233, 211, 0.72);
+  border-color: rgba(176, 138, 62, 0.38);
+  background: rgba(244, 233, 211, 0.06);
+}
+.icon-btn:hover { color: #f4e6c6; border-color: rgba(176, 138, 62, 0.75); background: rgba(244, 233, 211, 0.12); }
+
+.btn {
+  background: linear-gradient(180deg, #b84634 0%, #983225 55%, #85291d 100%);
+  color: #fbf2df;
+  border: 1px solid #6f2016;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(217, 185, 106, 0.55), inset 0 1px 0 rgba(255, 226, 190, 0.28);
+}
+.btn--ghost {
+  background: rgba(244, 233, 211, 0.06);
+  color: #f0dcb4;
+  border: 1px solid rgba(176, 138, 62, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(176, 138, 62, 0.18);
+}
+
+/* 章节内的“上一关 / 重玩本关”之间的分隔 */
+#ccPrev + #ccRestart { margin-left: 2px; }

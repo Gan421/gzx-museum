@@ -382,7 +382,6 @@
           <p class="gate__quote">从广海湾的一张船票，<br>到世界 145 个国家的乡音。</p>
           <button class="btn btn--gold pulse-btn gate__enter" id="enterBtn">进 入 博 物 馆</button>
           <div class="gate__hint">建议竖屏 · 全程约 15 分钟</div>
-          <a class="gate__link" href="../qiaopi/">另一个游戏 · 侨批归途 ›</a>
         </div>
       </div>`;
     $('#enterBtn').addEventListener('click', () => {
@@ -1932,7 +1931,83 @@
 
   /* ---------------- 全局交互 ---------------- */
   let booted = false;
+  /* ---------------- 背景音乐（与《侨批归途》同一套合成音） ---------------- */
+  const Bgm = (function () {
+    let ctx = null, master = null, timer = null, on = false, padNodes = [];
+    const SCALE = [196.00, 220.00, 261.63, 293.66, 329.63, 392.00];
+
+    function ensure() {
+      if (ctx) return ctx;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      try { ctx = new AC(); } catch (e) { return null; }
+      master = ctx.createGain();
+      master.gain.value = 0;
+      master.connect(ctx.destination);
+      return ctx;
+    }
+
+    function startPad() {
+      const g = ctx.createGain();
+      g.gain.value = 0.05;
+      const f = ctx.createBiquadFilter();
+      f.type = 'lowpass';
+      f.frequency.value = 320;
+      [98.0, 146.83].forEach((hz) => {
+        const o = ctx.createOscillator();
+        o.type = 'triangle';
+        o.frequency.value = hz;
+        o.connect(f);
+        o.start();
+        padNodes.push(o);
+      });
+      f.connect(g); g.connect(master);
+    }
+
+    function pluck() {
+      if (!ctx) return;
+      const t = ctx.currentTime;
+      const f0 = SCALE[Math.floor(Math.random() * SCALE.length)] * (Math.random() < 0.3 ? 2 : 1);
+      const o = ctx.createOscillator();
+      const o2 = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f0;
+      o2.type = 'triangle'; o2.frequency.value = f0 * 2.01;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.06, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 2.2);
+      o.connect(g); o2.connect(g); g.connect(master);
+      o.start(t); o2.start(t); o.stop(t + 2.3); o2.stop(t + 2.3);
+    }
+
+    function tick() {
+      if (!on) return;
+      pluck();
+      timer = setTimeout(tick, 2600 + Math.random() * 2800);
+    }
+
+    function start() {
+      if (on) return;
+      if (!ensure()) return;
+      on = true;
+      if (ctx.state === 'suspended') ctx.resume();
+      master.gain.setTargetAtTime(0.2, ctx.currentTime, 1.4);
+      if (!padNodes.length) startPad();
+      timer = setTimeout(tick, 900);
+    }
+
+    function stop() {
+      if (!on || !ctx) return;
+      on = false;
+      clearTimeout(timer);
+      master.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
+    }
+
+    return { start: start, stop: stop, isOn: function () { return on; } };
+  })();
+
   function init() {
+    document.addEventListener('click', function () { if (S.soundOn) Bgm.start(); }, { once: true });
     if (booted) return;
     booted = true;
     const saved = load();
@@ -1973,8 +2048,8 @@
     });
     $('#btnSound').addEventListener('click', () => {
       S.soundOn = !S.soundOn; save(); updateSoundIcon();
-      if (S.soundOn) Sfx.click();
-      toast(S.soundOn ? '音效已开启' : '音效已关闭');
+      if (S.soundOn) { Sfx.click(); Bgm.start(); } else { Bgm.stop(); }
+      toast(S.soundOn ? '声音已开启' : '声音已关闭');
     });
     $('#minimap').addEventListener('click', () => {
       $('#mapModal').hidden = false;

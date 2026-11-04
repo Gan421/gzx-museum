@@ -225,6 +225,11 @@
     const el = $('#screen-' + name);
     if (el) el.setAttribute('data-active', '');
     $('#topbar').hidden = name === 'title';
+    // 章节内才显示“上一关 / 重玩本关”
+    ['ccPrev', 'ccRestart'].forEach(function (id) {
+      const b = document.getElementById(id);
+      if (b) b.hidden = name !== 'chapter';
+    });
     $('#foot').hidden = name === 'title';
     $('#btnBack').style.visibility = name === 'hub' || name === 'title' ? 'hidden' : 'visible';
     if (name !== 'title') {
@@ -1616,6 +1621,19 @@
           { label: '重新开始', fn: () => { resetAll(); startPrologue(); } }
         ]
       });
+    });
+    const ccPrev = $('#ccPrev'), ccRestart = $('#ccRestart');
+    if (ccPrev) ccPrev.addEventListener('click', () => {
+      if (currentScreen !== 'chapter') return;
+      Sfx.click();
+      if (flow.chap > 0) startChapter(flow.chap - 1);
+      else { renderHub(); show('hub'); }
+    });
+    if (ccRestart) ccRestart.addEventListener('click', () => {
+      if (currentScreen !== 'chapter') return;
+      Sfx.click();
+      if (!flow.steps || !flow.steps.length) { startPrologue(); toast('序章重新开始'); }
+      else { startChapter(flow.chap); toast('本关重新开始'); }
     });
     $('#btnBack').addEventListener('click', back);
     $('#btnSound').addEventListener('click', () => {
