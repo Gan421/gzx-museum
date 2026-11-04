@@ -275,3 +275,23 @@
   padding-bottom: 2px;
 }
 .gate__link:hover { color: #f4e6c6; border-color: rgba(217, 185, 106, 0.8); }
+
+
+/* 地图点位收小，避免遮住地图 */
+.spot {
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-width: 1.5px;
+}
+.spot.is-found {
+  box-shadow: 0 0 0 2px rgba(201, 162, 74, 0.18);
+}
+.spot.is-found::after { font-size: 10px; }
+.spot-label {
+  font-size: 8.5px;
+  padding: 1px 5px;
+  transform: translate(-50%, 2px);
+  letter-spacing: 0.02em;
+}
+.spot.is-near { opacity: 0.5; }

@@ -158,3 +158,47 @@
 
 /* 章节内的“上一关 / 重玩本关”之间的分隔 */
 #ccPrev + #ccRestart { margin-left: 2px; }
+
+
+/* 底部关卡控制条（与博物馆同款） */
+.ctrlbar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 40;
+  display: flex;
+  gap: 1px;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(180deg, rgba(18, 14, 10, 0.55), rgba(18, 14, 10, 0.97) 45%);
+  border-top: 1px solid rgba(176, 138, 62, 0.4);
+}
+.ctrlbar[hidden] { display: none; }
+.ctrlbar__btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  border-radius: 2px;
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: rgba(246, 237, 217, 0.72);
+  background: rgba(244, 233, 211, 0.05);
+  border: 1px solid rgba(176, 138, 62, 0.3);
+}
+.ctrlbar__btn svg { width: 16px; height: 16px; }
+.ctrlbar__btn:active { background: rgba(244, 233, 211, 0.12); }
+.ctrlbar__btn--next {
+  background: linear-gradient(180deg, #c04c38, #99331f);
+  color: #fdf4e2;
+  border-color: #6f2016;
+  box-shadow: inset 0 0 0 1px rgba(217, 185, 106, 0.5);
+}
+
+/* 章节页给底部控制条留位置 */
+#screen-chapter { padding-bottom: 78px; }
+
+
+/* “继续”栏浮在底部控制条之上，避免被遮住 */
+.continue-bar { bottom: 74px; }

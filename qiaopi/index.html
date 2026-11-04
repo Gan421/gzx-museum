@@ -25,12 +25,6 @@
     </button>
     <div class="topbar__title"><b id="barTitle">侨批归途</b><span id="barSub"></span></div>
     <div class="topbar__dots" id="barDots" aria-hidden="true"></div>
-    <button class="icon-btn" id="ccPrev" aria-label="上一关" title="上一关" hidden>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 6l-6 6 6 6"/><path d="M19 6l-6 6 6 6"/></svg>
-    </button>
-    <button class="icon-btn" id="ccRestart" aria-label="重玩本关" title="重玩本关" hidden>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
-    </button>
     <button class="icon-btn" id="btnSound" aria-label="音效开关">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" id="soundIcon"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>
     </button>
@@ -168,6 +162,21 @@
       </div>
     </section>
   </main>
+
+  <nav class="ctrlbar" id="ctrlbar" aria-label="关卡控制" hidden>
+    <button class="ctrlbar__btn" id="ccRestart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+      重玩本关
+    </button>
+    <button class="ctrlbar__btn" id="ccPrev">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      上一关
+    </button>
+    <button class="ctrlbar__btn ctrlbar__btn--next" id="ccNext">
+      下一关
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </nav>
 
   <footer class="foot" id="foot" hidden>
     <span>侨批归途 · 云端侨乡剧情解谜</span>

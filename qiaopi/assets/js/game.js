@@ -225,11 +225,9 @@
     const el = $('#screen-' + name);
     if (el) el.setAttribute('data-active', '');
     $('#topbar').hidden = name === 'title';
-    // 章节内才显示“上一关 / 重玩本关”
-    ['ccPrev', 'ccRestart'].forEach(function (id) {
-      const b = document.getElementById(id);
-      if (b) b.hidden = name !== 'chapter';
-    });
+    // 章节内才显示底部控制条
+    const cbar = document.getElementById('ctrlbar');
+    if (cbar) cbar.hidden = name !== 'chapter';
     $('#foot').hidden = name === 'title';
     $('#btnBack').style.visibility = name === 'hub' || name === 'title' ? 'hidden' : 'visible';
     if (name !== 'title') {
@@ -1634,6 +1632,17 @@
       Sfx.click();
       if (!flow.steps || !flow.steps.length) { startPrologue(); toast('序章重新开始'); }
       else { startChapter(flow.chap); toast('本关重新开始'); }
+    });
+    const ccNext = $('#ccNext');
+    if (ccNext) ccNext.addEventListener('click', () => {
+      if (currentScreen !== 'chapter') return;
+      Sfx.click();
+      // 序章：直接进第一篇
+      if (!flow.steps || !flow.steps.length) { startChapter(0); return; }
+      const ch = CH[flow.chap];
+      if (ch && S.done.indexOf(ch.id) < 0) { toast('请先完成本关，才能进入下一关'); return; }
+      if (flow.chap + 1 < CH.length) startChapter(flow.chap + 1);
+      else finishGame();
     });
     $('#btnBack').addEventListener('click', back);
     $('#btnSound').addEventListener('click', () => {
