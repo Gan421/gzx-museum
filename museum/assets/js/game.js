@@ -8,7 +8,7 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.prototype.slice.call(r.querySelectorAll(s));
   const IMG = D.IMG;
-  const SAVE = 'gzx_museum_v1';
+  const SAVE = 'gzx_museum_v2';
   const TOTAL = 15;
 
 
@@ -57,11 +57,11 @@
     { id: 'gate', name: '馆前', zone: '馆外', dot: null, bg: 'front', bright: true },
     { id: 'hall', name: '大厅', zone: '大厅', dot: { x: 0.53, y: 0.57 }, bg: 'hall', bright: true },
     { id: 'portal', name: '侨乡入口', zone: '序厅', dot: { x: 0.19, y: 0.57 }, bg: 'portal' },
+    { id: 'part1', name: '第一部分', zone: '远赴重洋', dot: { x: 0.13, y: 0.43 }, bg: 'part1' },
     { id: 'history', name: '海外移民简史', zone: '远赴重洋', dot: { x: 0.13, y: 0.43 }, bg: 'migration' },
     { id: 'sail', name: '顺风下南洋', zone: '远赴重洋', dot: { x: 0.13, y: 0.43 }, bg: 'route_map' },
     { id: 'maps', name: '侨影遍天下', zone: '远赴重洋', dot: { x: 0.13, y: 0.43 }, bg: 'world_map' },
     { id: 'ruins', name: '广海遗存', zone: '远赴重洋', dot: { x: 0.13, y: 0.43 }, bg: 'ruin_temple' },
-    { id: 'part1', name: '第一部分', zone: '远赴重洋', dot: { x: 0.13, y: 0.43 }, bg: 'part1' },
     { id: 'years', name: '五邑沿革', zone: '远赴重洋', dot: { x: 0.13, y: 0.43 }, bg: 'years' },
     { id: 'part2', name: '第二部分', zone: '拼搏海外', dot: { x: 0.30, y: 0.32 }, bg: 'part2' },
     { id: 'tin', name: '琉琅妹淘锡', zone: '拼搏海外', dot: { x: 0.30, y: 0.32 }, bg: 'tin' },
@@ -74,7 +74,7 @@
 
   /* ---------------- 状态 ---------------- */
   const fresh = () => ({
-    v: 1, level: 0, done: [], spots: {}, games: {},
+    v: 2, level: 0, done: [], spots: {}, games: {},
     elapsed: 0, t0: 0, soundOn: true, started: false
   });
   let S = fresh();
@@ -85,7 +85,7 @@
       const raw = localStorage.getItem(SAVE);
       if (!raw) return null;
       const o = JSON.parse(raw);
-      if (!o || o.v !== 1) return null;
+      if (!o || o.v !== 2) return null;
       return Object.assign(fresh(), o, { t0: 0 });
     } catch (e) { return null; }
   }
@@ -532,7 +532,7 @@
   function levelHistory(root) {
     root.innerHTML = `
       <div class="level__head">
-        <div class="overline">第 三 站 · 序 厅</div>
+        <div class="overline">第 四 站 · 远 赴 重 洋</div>
         <h2 class="level__title">一部移民史</h2>
         <p class="level__sub">从秦汉到近现代，中国人走向海洋的脚步，从未停过。</p>
       </div>
@@ -558,7 +558,7 @@
   function levelSail(root) {
     root.innerHTML = `
       <div class="level__head">
-        <div class="overline">第 四 站 · 远 赴 重 洋</div>
+        <div class="overline">第 五 站 · 远 赴 重 洋</div>
         <h2 class="level__title">顺风下南洋</h2>
         <p class="level__sub">1901 年，广海湾。你的船要穿过礁石与风浪，驶向石叻。</p>
       </div>
@@ -787,7 +787,7 @@
 
     root.innerHTML = `
       <div class="level__head">
-        <div class="overline">第 五 站 · 远 赴 重 洋</div>
+        <div class="overline">第 六 站 · 远 赴 重 洋</div>
         <h2 class="level__title">侨影遍天下</h2>
         <p class="level__sub">地图上没有标记。凭记忆与判断，点出五邑人去过的地方。</p>
       </div>
@@ -914,7 +914,7 @@
     const done = {};
     root.innerHTML = `
       <div class="level__head">
-        <div class="overline">第 六 站 · 远 赴 重 洋</div>
+        <div class="overline">第 七 站 · 远 赴 重 洋</div>
         <h2 class="level__title">广海遗存</h2>
         <p class="level__sub">四张老照片，四处遗址。把照片拖到正确的名字上。</p>
       </div>
@@ -1010,7 +1010,7 @@
     });
     api.complete();
   }
-  function levelPart1(root) { levelPart(root, D.PART1, '第 七 站 · 远 赴 重 洋'); }
+  function levelPart1(root) { levelPart(root, D.PART1, '第 三 站 · 远 赴 重 洋'); }
   function levelPart2(root) { levelPart(root, D.PART2, '第 九 站 · 拼 搏 海 外'); }
 
 /* ==========================================================
