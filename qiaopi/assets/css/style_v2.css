@@ -1,0 +1,143 @@
+/* ==========================================================
+   与《根在侨乡 · 博物馆漫游》统一的古风细节
+   ----------------------------------------------------------
+   只加“框、线、字距、印章”这类装饰，不改版式与配色，
+   避免破坏原本的阅读节奏。
+   ========================================================== */
+
+:root {
+  --paper: #f4e9d3;
+  --paper-2: #ecdec0;
+  --red: #a63a2b;
+  --gold: #b08a3e;
+  --gold-2: #d9b96a;
+}
+
+/* 双线画框：章节卡、信纸、木箱锁、记忆卡、弹窗 */
+.chapter-card,
+.letter-paper,
+.lock,
+.mcard,
+.modal__box,
+.codex-item {
+  border-color: rgba(176, 138, 62, 0.55);
+  outline: 1px solid rgba(176, 138, 62, 0.3);
+  outline-offset: -6px;
+}
+
+/* 标题字距，贴近博物馆游戏的宋体排版 */
+.game-title,
+.chapter-head__title,
+.ending-title,
+.hub-head h2,
+.page-head h2 {
+  letter-spacing: 0.12em;
+}
+
+/* 按钮：朱砂底 + 铜金内线 */
+.btn {
+  letter-spacing: 0.18em;
+  box-shadow: inset 0 0 0 1px rgba(217, 185, 106, 0.42);
+}
+.btn--ghost {
+  box-shadow: inset 0 0 0 1px rgba(176, 138, 62, 0.25);
+}
+
+/* 小标题前的菱形朱标（与博物馆游戏的 overline 一致） */
+.chapter-head__no::before,
+.hub-head h2::before,
+.page-head h2::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  background: var(--red);
+  transform: rotate(45deg);
+  vertical-align: middle;
+}
+
+/* 印章稍微压低一点存在感 */
+.seal-mark {
+  opacity: 0.82;
+}
+
+
+/* 底部“继续/开始”栏：背景不拦截点击，只有按钮可点，避免误触跳到下一界面 */
+.continue-bar { pointer-events: none; }
+.continue-bar .btn { pointer-events: auto; }
+.continue-bar .progress-pip { pointer-events: auto; }
+
+/* 番外 · 四季盲盒 */
+.bonus-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.bonus-item:last-child { border-bottom: 0; }
+.bonus-season {
+  flex: 0 0 40px;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(176, 138, 62, 0.55);
+  border-radius: 2px;
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--red);
+  background: rgba(244, 233, 211, 0.6);
+}
+.bonus-body b { font-size: 14px; letter-spacing: 0.08em; }
+.bonus-body p { margin-top: 4px; font-size: 13px; line-height: 1.85; color: var(--ink-3); }
+
+
+/* ---------------- 侨乡寻访 ---------------- */
+.trail-list { display: grid; gap: 12px; padding: 0 18px; }
+.trail-card {
+  display: flex; gap: 12px;
+  padding: 10px;
+  border: 1px solid rgba(176, 138, 62, 0.35);
+  border-radius: 3px;
+  background: rgba(255, 252, 244, 0.55);
+}
+.trail-card.is-on { border-color: rgba(166, 58, 43, 0.55); background: rgba(166, 58, 43, 0.06); }
+.trail-thumb {
+  flex: 0 0 72px;
+  width: 72px; height: 72px;
+  border-radius: 2px;
+  background-size: cover;
+  background-position: center;
+  filter: sepia(.15) saturate(.95);
+}
+.trail-body { flex: 1; min-width: 0; }
+.trail-name { font-size: 15px; letter-spacing: .04em; color: var(--ink); }
+.trail-name span { margin-left: 8px; font-family: var(--sans); font-size: 11px; color: var(--paper-4); }
+.trail-body p { margin: 4px 0 6px; font-size: 12.5px; line-height: 1.8; color: var(--ink-3); }
+.trail-state { font-family: var(--sans); font-size: 11px; letter-spacing: .08em; color: var(--paper-4); }
+.trail-card.is-on .trail-state { color: var(--red); }
+.trail-code { display: flex; gap: 10px; padding: 18px; }
+.trail-code input {
+  flex: 1; min-width: 0;
+  height: 42px; padding: 0 12px;
+  border: 1px solid rgba(176, 138, 62, 0.45);
+  border-radius: 2px;
+  background: rgba(255, 252, 244, 0.8);
+  font-family: var(--sans); font-size: 14px; letter-spacing: .08em;
+  color: var(--ink);
+}
+.trail-note { padding: 0 18px 24px; font-size: 12.5px; color: var(--red-3); min-height: 20px; }
+
+
+/* 标题页：另一款游戏的入口 */
+.title-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: var(--serif);
+  font-size: 12.5px;
+  letter-spacing: 0.16em;
+  color: rgba(217, 185, 106, 0.8);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(217, 185, 106, 0.35);
+  padding-bottom: 2px;
+}
+.title-link:hover { color: #f4e6c6; border-color: rgba(217, 185, 106, 0.8); }

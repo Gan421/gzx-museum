@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>根在侨乡 · 博物馆漫游</title>
+<meta name="description" content="中国侨都华侨华人博物馆云端漫游：按展厅动线，用十五个互动关卡读懂五邑华侨的百年故事。">
+<meta name="theme-color" content="#0d1418">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230e2b33'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23d4b46a' font-family='serif'%3E根%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style_v3.css">
+<link rel="stylesheet" href="assets/css/style_v4.css">
+<link rel="stylesheet" href="assets/css/style_v5.css">
+<link rel="stylesheet" href="assets/css/style_v6.css">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="根在侨乡">
+<link rel="preload" as="image" href="assets/img/front.jpg">
+</head>
+<body>
+<div class="bg" aria-hidden="true"><div class="bg__photo" id="bgPhoto"></div><div class="bg__veil"></div></div>
+
+<div id="app">
+  <header class="hud" id="hud">
+    <button class="hud__btn" id="btnBack" aria-label="返回上一站">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <div class="hud__title">
+      <b id="hudName">根在侨乡</b>
+      <span id="hudZone">中国侨都华侨华人博物馆</span>
+    </div>
+    <button class="hud__btn" id="btnSound" aria-label="音效开关">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" id="soundIcon"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+    </button>
+  </header>
+  <div class="hud__bar"><i id="hudBar"></i></div>
+
+  <!-- 右上角常驻地图 -->
+  <aside class="minimap" id="minimap" aria-label="展厅地图">
+    <div class="minimap__head"><span>2F 展厅</span><b id="mmZone">大厅</b></div>
+    <div class="minimap__map" id="mmMap">
+      <img src="assets/img/map2f.jpg" alt="博物馆 2F 平面图">
+      <span class="mm-dot" id="mmDot"></span>
+      <span class="mm-ring" id="mmRing"></span>
+    </div>
+    <div class="minimap__foot">点击放大 <span id="mmCount">1 / 15</span></div>
+  </aside>
+
+  <main id="stage"></main>
+
+  <nav class="ctrlbar" id="ctrlbar" aria-label="关卡控制">
+    <button class="ctrlbar__btn" id="ctrlRestart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+      重玩本关
+    </button>
+    <button class="ctrlbar__btn" id="ctrlPrev">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      上一关
+    </button>
+    <button class="ctrlbar__btn ctrlbar__btn--next" id="ctrlNext">
+      <span id="ctrlNextLabel">下一关</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </nav>
+</div>
+
+<div class="flash" id="flash" aria-hidden="true"></div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal__box" role="dialog" aria-modal="true">
+    <button class="modal__close" id="modalClose" aria-label="关闭">×</button>
+    <img class="modal__img" id="modalImg" alt="" hidden>
+    <div class="modal__tag" id="modalTag"></div>
+    <h3 class="modal__title" id="modalTitle"></h3>
+    <div class="modal__text" id="modalText"></div>
+    <div class="modal__foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<div class="mapmodal" id="mapModal" hidden>
+  <div class="mapmodal__box">
+    <div class="mapmodal__head">
+      <span>2F 展厅平面图</span>
+      <button id="mapModalClose" aria-label="关闭">×</button>
+    </div>
+    <div class="mapmodal__map" id="mapBig">
+      <img src="assets/img/map2f.jpg" alt="博物馆 2F 平面图">
+      <span class="mm-dot" id="mmDotBig"></span>
+      <span class="mm-ring" id="mmRingBig"></span>
+      <span class="mapmodal__label" id="mapLabel">你在这里</span>
+    </div>
+    <div class="mapmodal__legend">
+      <span><i class="lg lg--now"></i>当前位置</span>
+      <span><i class="lg lg--path"></i>参观动线</span>
+      <span class="mapmodal__note">红色虚线为参观动线</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 长文弹窗（设计参考自消消乐科普弹窗，不改动关卡流程） -->
+<div class="longread" id="longread" hidden role="dialog" aria-modal="true" aria-labelledby="lrTitle">
+  <div class="longread__card">
+    <div class="longread__head">
+      <div class="longread__kicker" id="lrKicker">侨乡长文</div>
+      <h2 class="longread__title" id="lrTitle">标题</h2>
+      <p class="longread__sub" id="lrSub"></p>
+    </div>
+    <div class="longread__rule"></div>
+    <div class="longread__body" id="lrBody" tabindex="0"></div>
+    <div class="longread__foot">
+      <span class="longread__count" id="lrCount"></span>
+      <button class="longread__close" id="lrClose" type="button">关 闭</button>
+    </div>
+  </div>
+</div>
+
+
+
+<noscript><div style="padding:40px;text-align:center">请启用 JavaScript。</div></noscript>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/longread.js"></script>
+<script src="assets/js/game.js"></script>
+<script>
+/* 注册 Service Worker：HTTPS / localhost 下启用，实现离线与“添加到主屏幕” */
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () { /* 离线能力不可用不影响游戏 */ });
+  });
+}
+</script>
+</body>
+</html>
+

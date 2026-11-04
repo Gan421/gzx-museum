@@ -260,3 +260,18 @@
 .sieve, .sieve-wrap { touch-action: none; user-select: none; -webkit-user-select: none; }
 .sieve { will-change: transform; }
 .workbench, .shop { touch-action: none; user-select: none; -webkit-user-select: none; }
+
+
+/* 门厅：另一款游戏的入口 */
+.gate__link {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--serif);
+  font-size: 12.5px;
+  letter-spacing: 0.16em;
+  color: rgba(217, 185, 106, 0.8);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(217, 185, 106, 0.35);
+  padding-bottom: 2px;
+}
+.gate__link:hover { color: #f4e6c6; border-color: rgba(217, 185, 106, 0.8); }

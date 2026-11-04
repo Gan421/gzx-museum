@@ -2,136 +2,116 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
-<title>根在侨乡 · 博物馆漫游</title>
-<meta name="description" content="中国侨都华侨华人博物馆云端漫游：按展厅动线，用十五个互动关卡读懂五邑华侨的百年故事。">
-<meta name="theme-color" content="#0d1418">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230e2b33'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23d4b46a' font-family='serif'%3E根%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/style_v3.css">
-<link rel="stylesheet" href="assets/css/style_v4.css">
-<link rel="stylesheet" href="assets/css/style_v5.css">
-<link rel="stylesheet" href="assets/css/style_v6.css">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="根在侨乡">
-<link rel="preload" as="image" href="assets/img/front.jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>侨乡双卷 · 根在侨乡 / 侨批归途</title>
+<meta name="description" content="两部以江门五邑侨文化为题材的互动作品：博物馆漫游与侨批剧情解谜。">
+<meta name="theme-color" content="#12100d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230e2b33'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23d4b46a' font-family='serif'%3E侨%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --paper:#f4e9d3; --paper-2:#ecdec0; --ink:#221e19; --ink-2:#3b342a; --ink-3:#6b5a42;
+    --red:#a63a2b; --gold:#b08a3e; --gold-2:#d9b96a;
+    --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif SC","SimSun",serif;
+    --sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;min-height:100%;}
+  body{
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(176,138,62,.10), transparent 60%),
+      linear-gradient(180deg,#15110d,#0b0806 70%);
+    color:var(--paper);
+    font-family:var(--sans);
+    padding:0 20px 60px;
+  }
+  .wrap{max-width:1040px;margin:0 auto;}
+  header{padding:74px 0 30px;text-align:center;}
+  .kicker{font-family:var(--serif);font-size:12px;letter-spacing:.42em;color:var(--gold-2);}
+  h1{
+    margin:14px 0 10px;
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(36px,7vw,58px);letter-spacing:.16em;color:#f8efdc;
+  }
+  .sub{font-family:var(--serif);font-size:14px;letter-spacing:.18em;color:rgba(244,233,211,.62);}
+  .rule{width:64px;height:1px;margin:26px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px;}
+  @media (max-width:760px){ .cards{grid-template-columns:1fr;} }
+
+  .card{
+    position:relative;display:block;text-decoration:none;color:inherit;
+    background:linear-gradient(180deg,#f8eeda,#efe2c6);
+    border:1px solid rgba(176,138,62,.55);
+    outline:1px solid rgba(176,138,62,.3);outline-offset:-6px;
+    box-shadow:0 26px 60px rgba(0,0,0,.55);
+    transition:transform .2s ease, box-shadow .2s ease;
+    overflow:hidden;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 34px 70px rgba(0,0,0,.62);}
+  .card__img{position:relative;height:230px;background-size:cover;background-position:center;}
+  .card__img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,12,8,.15),rgba(16,12,8,.62));}
+  .card__no{
+    position:absolute;left:16px;top:14px;z-index:1;
+    font-family:var(--serif);font-size:11px;letter-spacing:.3em;color:#f6e3b8;
+  }
+  .card__body{padding:20px 20px 24px;color:var(--ink);}
+  .card__title{font-family:var(--serif);font-size:24px;letter-spacing:.12em;}
+  .card__en{font-size:10px;letter-spacing:.3em;color:var(--ink-3);margin-top:4px;}
+  .card__desc{margin:12px 0 16px;font-size:13.5px;line-height:1.95;color:var(--ink-2);}
+  .card__meta{display:flex;gap:14px;font-size:11.5px;color:var(--ink-3);letter-spacing:.06em;}
+  .card__go{
+    display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+    padding:9px 16px;border:1px solid rgba(166,58,43,.5);border-radius:2px;
+    background:linear-gradient(180deg,rgba(166,58,43,.12),rgba(166,58,43,.05));
+    color:var(--red);font-family:var(--serif);font-size:13px;letter-spacing:.18em;
+  }
+  .card__go::after{content:"›";font-size:16px;}
+
+  footer{margin-top:56px;text-align:center;font-size:12px;line-height:2;color:rgba(244,233,211,.42);}
+  footer b{color:rgba(244,233,211,.66);font-weight:400;}
+</style>
 </head>
 <body>
-<div class="bg" aria-hidden="true"><div class="bg__photo" id="bgPhoto"></div><div class="bg__veil"></div></div>
-
-<div id="app">
-  <header class="hud" id="hud">
-    <button class="hud__btn" id="btnBack" aria-label="返回上一站">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-    </button>
-    <div class="hud__title">
-      <b id="hudName">根在侨乡</b>
-      <span id="hudZone">中国侨都华侨华人博物馆</span>
-    </div>
-    <button class="hud__btn" id="btnSound" aria-label="音效开关">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" id="soundIcon"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>
-    </button>
+<div class="wrap">
+  <header>
+    <div class="kicker">江 门 五 邑 · 侨 文 化</div>
+    <h1>侨 乡 双 卷</h1>
+    <div class="sub">一部走展厅，一部读侨批</div>
+    <div class="rule"></div>
   </header>
-  <div class="hud__bar"><i id="hudBar"></i></div>
 
-  <!-- 右上角常驻地图 -->
-  <aside class="minimap" id="minimap" aria-label="展厅地图">
-    <div class="minimap__head"><span>2F 展厅</span><b id="mmZone">大厅</b></div>
-    <div class="minimap__map" id="mmMap">
-      <img src="assets/img/map2f.jpg" alt="博物馆 2F 平面图">
-      <span class="mm-dot" id="mmDot"></span>
-      <span class="mm-ring" id="mmRing"></span>
-    </div>
-    <div class="minimap__foot">点击放大 <span id="mmCount">1 / 15</span></div>
-  </aside>
+  <div class="cards">
+    <a class="card" href="./museum/">
+      <div class="card__img" style="background-image:url('./museum/assets/img/hall.jpg')">
+        <span class="card__no">卷 一 · 馆 内</span>
+      </div>
+      <div class="card__body">
+        <div class="card__title">根在侨乡 · 博物馆漫游</div>
+        <div class="card__en">ROOTED IN QIAOXIANG</div>
+        <p class="card__desc">按中国侨都华侨华人博物馆的参观动线，走过十五站：大厅四字、黑洞传送门、世界华侨地图、广海遗存、淘锡、美洲铁路、洗衣店、侨民学校。</p>
+        <div class="card__meta"><span>15 站</span><span>约 15 分钟</span><span>竖屏</span></div>
+        <span class="card__go">进 馆</span>
+      </div>
+    </a>
 
-  <main id="stage"></main>
-
-  <nav class="ctrlbar" id="ctrlbar" aria-label="关卡控制">
-    <button class="ctrlbar__btn" id="ctrlRestart">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
-      重玩本关
-    </button>
-    <button class="ctrlbar__btn" id="ctrlPrev">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-      上一关
-    </button>
-    <button class="ctrlbar__btn ctrlbar__btn--next" id="ctrlNext">
-      <span id="ctrlNextLabel">下一关</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
-    </button>
-  </nav>
-</div>
-
-<div class="flash" id="flash" aria-hidden="true"></div>
-
-<div class="modal" id="modal" hidden>
-  <div class="modal__box" role="dialog" aria-modal="true">
-    <button class="modal__close" id="modalClose" aria-label="关闭">×</button>
-    <img class="modal__img" id="modalImg" alt="" hidden>
-    <div class="modal__tag" id="modalTag"></div>
-    <h3 class="modal__title" id="modalTitle"></h3>
-    <div class="modal__text" id="modalText"></div>
-    <div class="modal__foot" id="modalFoot"></div>
+    <a class="card" href="./qiaopi/">
+      <div class="card__img" style="background-image:url('./qiaopi/assets/img/hero_tower.jpg')">
+        <span class="card__no">卷 二 · 侨 批</span>
+      </div>
+      <div class="card__body">
+        <div class="card__title">侨批归途 · 剧情解谜</div>
+        <div class="card__en">LETTERS FROM THE SOUTH SEAS</div>
+        <p class="card__desc">一封侨批，三代人的南洋与故乡。序章与四篇、六道谜题、三种结局；铜牌、账簿、船票、火漆，最后拼出一个家族的去向。</p>
+        <div class="card__meta"><span>序章 + 四篇</span><span>3 结局</span><span>约 20 分钟</span></div>
+        <span class="card__go">拆 信</span>
+      </div>
+    </a>
   </div>
+
+  <footer>
+    <b>侨批</b>，是海外华侨寄回家乡的银信合称。2013 年，侨批档案入选联合国教科文组织《世界记忆名录》。<br>
+    两作均为侨文化公益宣传作品 · 建议手机竖屏体验
+  </footer>
 </div>
-
-<div class="mapmodal" id="mapModal" hidden>
-  <div class="mapmodal__box">
-    <div class="mapmodal__head">
-      <span>2F 展厅平面图</span>
-      <button id="mapModalClose" aria-label="关闭">×</button>
-    </div>
-    <div class="mapmodal__map" id="mapBig">
-      <img src="assets/img/map2f.jpg" alt="博物馆 2F 平面图">
-      <span class="mm-dot" id="mmDotBig"></span>
-      <span class="mm-ring" id="mmRingBig"></span>
-      <span class="mapmodal__label" id="mapLabel">你在这里</span>
-    </div>
-    <div class="mapmodal__legend">
-      <span><i class="lg lg--now"></i>当前位置</span>
-      <span><i class="lg lg--path"></i>参观动线</span>
-      <span class="mapmodal__note">红色虚线为参观动线</span>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<!-- 长文弹窗（设计参考自消消乐科普弹窗，不改动关卡流程） -->
-<div class="longread" id="longread" hidden role="dialog" aria-modal="true" aria-labelledby="lrTitle">
-  <div class="longread__card">
-    <div class="longread__head">
-      <div class="longread__kicker" id="lrKicker">侨乡长文</div>
-      <h2 class="longread__title" id="lrTitle">标题</h2>
-      <p class="longread__sub" id="lrSub"></p>
-    </div>
-    <div class="longread__rule"></div>
-    <div class="longread__body" id="lrBody" tabindex="0"></div>
-    <div class="longread__foot">
-      <span class="longread__count" id="lrCount"></span>
-      <button class="longread__close" id="lrClose" type="button">关 闭</button>
-    </div>
-  </div>
-</div>
-
-
-
-<noscript><div style="padding:40px;text-align:center">请启用 JavaScript。</div></noscript>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/longread.js"></script>
-<script src="assets/js/game.js"></script>
-<script>
-/* 注册 Service Worker：HTTPS / localhost 下启用，实现离线与“添加到主屏幕” */
-if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js').catch(function () { /* 离线能力不可用不影响游戏 */ });
-  });
-}
-</script>
 </body>
 </html>
-

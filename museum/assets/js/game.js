@@ -382,6 +382,7 @@
           <p class="gate__quote">从广海湾的一张船票，<br>到世界 145 个国家的乡音。</p>
           <button class="btn btn--gold pulse-btn gate__enter" id="enterBtn">进 入 博 物 馆</button>
           <div class="gate__hint">建议竖屏 · 全程约 15 分钟</div>
+          <a class="gate__link" href="../qiaopi/">另一个游戏 · 侨批归途 ›</a>
         </div>
       </div>`;
     $('#enterBtn').addEventListener('click', () => {

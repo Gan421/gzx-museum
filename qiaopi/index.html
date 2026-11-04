@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>侨批归途 · 云端侨乡剧情解谜</title>
+<meta name="description" content="《侨批归途》是一款以江门五邑侨批文化为题材的线上剧情解谜游戏：序章与四篇、五道谜题、多重结局，文具即道具，体验即文化。">
+<meta name="theme-color" content="#17181a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23a8322a'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='%23f1e7d3' font-family='serif'%3E侨%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style_v2.css">
+<link rel="preload" as="image" href="assets/img/hero_tower.jpg">
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <div class="bg__photo" id="bgPhoto"></div>
+  <div class="bg__veil"></div>
+  <div class="bg__grain"></div>
+</div>
+
+<div id="app">
+  <header class="topbar" id="topbar" hidden>
+    <button class="icon-btn" id="btnBack" aria-label="返回">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <div class="topbar__title"><b id="barTitle">侨批归途</b><span id="barSub"></span></div>
+    <div class="topbar__dots" id="barDots" aria-hidden="true"></div>
+    <button class="icon-btn" id="btnSound" aria-label="音效开关">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" id="soundIcon"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+    </button>
+  </header>
+
+  <main id="stage">
+    <!-- ============ 标题 ============ -->
+    <section class="screen" id="screen-title" data-active>
+      <div class="title-hero">
+        <div class="title-hero__img" style="background-image:url('assets/img/hero_tower.jpg')"></div>
+        <div class="title-hero__grade"></div>
+        <div class="seal-mark" aria-hidden="true">侨批归途</div>
+        <div class="title-hero__inner">
+          <div class="kicker">Letters from the South Seas</div>
+          <h1 class="game-title">侨批<em>归途</em></h1>
+          <div class="game-sub">云 端 侨 乡 剧 情 解 谜</div>
+          <p class="title-quote">银信一封，跨海万里。<br>纸上三行，抵得半生。<br>一封侨批，三代人的南洋与故乡。</p>
+          <div class="title-actions">
+            <button class="btn btn--block" id="btnStart">拆开这封信</button>
+            <button class="btn btn--ghost btn--block" id="btnResume" hidden>继续上次的归途</button>
+            <button class="btn btn--ghost btn--block" id="btnHubFromTitle" hidden>回到章节</button>
+          </div>
+          <div class="title-meta"><span>序章 + 四篇 · 约 15 分钟</span><span>江门五邑 · 侨批题材</span></div>
+          <a class="title-link" href="../museum/">另一个游戏 · 根在侨乡 ›</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 章节枢纽 ============ -->
+    <section class="screen" id="screen-hub">
+      <div class="hub-head">
+        <h2>归途 · 序章 · 四篇</h2>
+        <p>从广海湾的一只旧木箱开始，到南洋的锡矿、怡保的铺面，再回到唐山的田里。<br>已完成 <b id="hubProgress">0 / 4</b> 篇。</p>
+      </div>
+      <div class="hub-note" id="hubNote">
+        <b>玩法</b>　每一篇包含一段剧情与一道谜题。谜题线索藏在信纸、账簿与砖墙里——慢慢看，不必急。
+      </div>
+      <div class="chapter-list" id="chapterList"></div>
+      <div class="hub-tools">
+        <button class="tool" data-go="cards">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="1.5"/><path d="M7 3h13v15"/><path d="M7 11h6M7 15h6"/></svg>
+          记忆卡册<small id="toolCards">1 / 10</small>
+        </button>
+        <button class="tool" data-go="album">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1.5"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>
+          侨乡影集<small>40 张实景</small>
+        </button>
+        <button class="tool" data-go="codex">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5A1.5 1.5 0 0 0 20 18.5z"/></svg>
+          侨史小课堂<small>6 则</small>
+        </button>
+        <button class="tool" data-go="trail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+          侨乡寻访<small id="toolTrail">0 / 5</small>
+        </button>
+      </div>
+      <div class="pad pad--tight" style="padding-top:0">
+        <div class="btn-row">
+          <button class="btn btn--ghost btn--small" id="btnBonus">番外 · 四季盲盒</button>
+          <button class="btn btn--ghost btn--small" id="btnAbout">关于本作</button>
+          <button class="btn btn--ghost btn--small" id="btnHubReplay" hidden>重新走一遍</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 章节内容（动态） ============ -->
+    <section class="screen" id="screen-chapter">
+      <div id="chapBody"></div>
+    </section>
+
+    <!-- ============ 结局（动态） ============ -->
+    <section class="screen" id="screen-ending">
+      <div id="endBody"></div>
+    </section>
+
+    <!-- ============ 卡册 ============ -->
+    <section class="screen" id="screen-cards">
+      <div class="page-head"><h2>记忆卡册</h2><p id="cardsCount">1 / 10</p></div>
+      <p class="page-intro">每一张卡，是一段侨史，也是一件道具的来历。完成剧情、读懂信纸，卡册会慢慢被填满。</p>
+      <div class="card-grid" id="cardGrid"></div>
+    </section>
+
+    <!-- ============ 影集 ============ -->
+    <section class="screen" id="screen-album">
+      <div class="page-head"><h2>侨乡影集</h2><p>40 张 · 实地拍摄</p></div>
+      <p class="page-intro">以下照片来自团队在江门、开平、台山等地的实地调研，均为建筑、器物与展陈影像。</p>
+      <div class="album-filter" id="albumFilter"></div>
+      <div class="album-grid" id="albumGrid"></div>
+    </section>
+
+    <!-- ============ 小课堂 ============ -->
+    <section class="screen" id="screen-codex">
+      <div class="page-head"><h2>侨史小课堂</h2><p>6 则</p></div>
+      <p class="page-intro">玩过之后，也许你会想知道：这些字、这些楼、这些数字，从哪里来。</p>
+      <div class="codex-list" id="codexList"></div>
+    </section>
+
+    <!-- ============ 侨乡寻访 ============ -->
+    <section class="screen" id="screen-trail">
+      <div class="page-head"><h2>侨乡寻访</h2><p id="trailCount">0 / 5</p></div>
+      <p class="page-intro">五处侨乡地标。到过现场，把折页或解谜文具上的口令填进来，就能点亮一枚印章——线上读故事，线下走一趟。</p>
+      <div class="trail-list" id="trailList"></div>
+      <div class="trail-code">
+        <input id="trailInput" maxlength="12" placeholder="输入线下口令，如 JM01" autocomplete="off">
+        <button class="btn btn--small" id="trailBtn">验 证</button>
+      </div>
+      <p class="trail-note" id="trailMsg"></p>
+    </section>
+
+    <!-- ============ 关于 ============ -->
+    <section class="screen" id="screen-about">
+      <div class="page-head"><h2>关于本作</h2><p>V1.0</p></div>
+      <div class="about-body">
+        <h4>这是什么</h4>
+        <p>《侨批归途》是"侨文化云端剧情文创——乔盛文具创新文旅产品"策划方案中的线上体验部分：一套无需场地、全国可参与的侨乡剧情解谜游戏。以侨批（银信）为叙事核心，把江门五邑的百年侨史拆成序章与四篇，用四道与文具、账簿、砖墙有关的谜题串起来。</p>
+
+        <h4>怎么玩</h4>
+        <ul>
+          <li>序章与四篇依次推进；每篇一道谜题，解谜后进入抉择。</li>
+          <li>谜题里的信纸、账簿、碉楼图样，都对应策划案中的"解谜文具"套装。</li>
+          <li>抉择会影响"亲情 / 开拓 / 家国"三项心境，并决定结局。</li>
+          <li>全程不用提示、不答错任何一题，可解锁隐藏的<strong>真结局</strong>。</li>
+          <li>进度自动保存在本机浏览器；换设备或清理缓存会重置。</li>
+        </ul>
+
+        <h4>产品设计</h4>
+        <p>本作对应策划案的四重盈利闭环：线上剧情免费引流，完整结局与番外章节可付费解锁；线下以"侨批复刻信纸、南洋侨纹手账、碉楼文脉钢笔、侨乡火漆印章、多结局收藏卡册"承接核心利润；云端研学文具包面向学校批量定制；四季盲盒以番外剧情带动复购。</p>
+
+        <h4>素材与版权</h4>
+        <p>游戏中全部照片由团队实地调研拍摄于中国侨都华侨华人博物馆、开平碉楼与村落、台山海口埠、江门启明里等地，用于本项目创作与展示；人物照片一律未采用。侨史资料参考公开馆藏史料与公开出版物，剧情人物为虚构，情节取材于五邑华侨的普遍经历。</p>
+        <p class="fine">本项目为团队原创策划作品。游戏内文案、界面与谜题设计版权归创作团队所有，未经许可不得商用转载。如涉及商标、外观设计等知识产权事项，将按规范申请注册与授权。</p>
+
+        <h4>关于侨批</h4>
+        <p>侨批，是海外华侨寄回家乡的银信合称。2013 年，侨批档案入选联合国教科文组织《世界记忆名录》。江门祖籍华侨华人与港澳台同胞 530 多万人，分布在全球 145 个国家和地区。</p>
+        <p class="fine">—— 愿每一封信，都能寄到。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot" id="foot" hidden>
+    <span>侨批归途 · 云端侨乡剧情解谜</span>
+    <span>侨文化 · 乔盛文具</span>
+  </footer>
+</div>
+
+<!-- 通用弹层 -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" id="modalClose" aria-label="关闭">×</button>
+    <img class="modal__img" id="modalImg" alt="" hidden>
+    <div class="modal__tag" id="modalTag"></div>
+    <h3 class="modal__title" id="modalTitle"></h3>
+    <div class="modal__text" id="modalText"></div>
+    <div class="modal__foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<!-- 卡片解锁 -->
+<div class="unlock" id="unlock" hidden>
+  <div class="unlock__card">
+    <img id="unlockImg" alt="">
+    <div class="unlock__kicker" id="unlockKicker">记忆卡 · 已解锁</div>
+    <h3 id="unlockTitle"></h3>
+    <p id="unlockText"></p>
+    <button class="btn btn--small" id="unlockBtn" style="margin-top:14px">收下</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript>
+  <div style="padding:40px;text-align:center;font-family:serif">本作需要启用 JavaScript 才能游玩。</div>
+</noscript>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/game.js"></script>
+</body>
+</html>
+
